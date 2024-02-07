@@ -1,0 +1,29 @@
+public class Solution {
+    public string FrequencySort(string s) {
+       Dictionary<char, int> myData = new Dictionary<char, int>();
+        
+        foreach (char c in s) {
+            if (myData.ContainsKey(c)) {
+                myData[c]++;
+            } else {
+                myData.Add(c, 1);
+            }
+        }
+
+        List<int> freqList = new List<int>(myData.Values);
+        freqList.Sort();
+
+        StringBuilder ans = new StringBuilder();
+
+        for (int i = freqList.Count - 1; i >= 0; i--) {
+            char temp = myData.FirstOrDefault(x => x.Value == freqList[i]).Key;
+            myData.Remove(temp);
+
+            for (int k = 0; k < freqList[i]; k++) {
+                ans.Append(temp);
+            }
+        }
+
+        return ans.ToString();
+    }
+}
